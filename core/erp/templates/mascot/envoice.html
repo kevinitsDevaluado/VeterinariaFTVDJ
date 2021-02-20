@@ -1,0 +1,61 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<style>
+    .img-invoice {
+        width: 50px;
+        text-align: center;
+        margin: 0 auto;
+    }
+
+    .head {
+        text-align: center;
+        text-transform: uppercase;
+    }
+
+    #invoice thead tr th {
+        text-align: left;
+        border-bottom: 1px solid black;
+        border-top: 1px solid black;
+        padding-top: 4px;
+    }
+
+    #invoice thead tr {
+        margin-bottom: 0;
+        padding-bottom: 0;
+    }
+
+    #invoice tbody tr {
+        padding: 0;
+    }
+
+    .text-center{
+        text-align: center;
+    }
+</style>
+<body>
+<img src="static/img/logo.png" class="img-invoice" style="width: 90; height: 90;">
+<center>
+    <h1 style="font-size:30px"> HOSPITAL VETERINARIO "MASCOT"</h1>
+
+</center>
+<center>
+    <div class="card" id="contenidoInformacion" style="background: #F9F0F8">
+        <div class="card-body">
+            <img src="{{ sale.image.url }}" class="img-invoice" alt="User Image" style="margin-left:360px;" width="300px" height="300px">
+            <h1 style="font-size:25px"> <strong> INFORMACIÓN DE LA MASCOTA:</strong> </h1>
+            <h2> Nombre: <strong>{{ sale.names }}</strong> </h2>
+            <h2> Especie: <strong>{{ sale.especie }}</strong> </h2>
+            <h2> Raza: <strong>{{ sale.raza }}</strong> </h2>
+            <h2> Sexo: <strong>{{ sale.gender }}</strong> </h2>
+            <h2> Fecha de Nacimiento: <strong>{{ sale.date_birthday }}</strong> </h2>
+            <img src="{{ sale.qr.url }}"  alt="User Image" width="300" height="300px" class="img-invoice" style="margin-left:360px;">
+    
+        </div>
+        <h2>SOMOS LA MEJOR CLINICA DEL PAIS CON LOS MEJORES PRECIOS Y MEJOR ATENCIÓN</h2>
+    </div>
+</center>
+
+</body>
+</html>

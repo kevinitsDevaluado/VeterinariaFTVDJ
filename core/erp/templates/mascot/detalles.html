@@ -1,0 +1,46 @@
+{% extends 'layout.html' %}
+{% load static %}
+<!--CARGAMOS LAS LIBRERIAS DEL DATATABLES-->    
+{% block head %}
+    <link rel="stylesheet" href="{% static 'lib/datatables-1.10.20/css/dataTables.bootstrap4.min.css' %}"/>
+    <link rel="stylesheet"
+          href="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/css/responsive.bootstrap4.min.css' %}"/>
+    <script src="{% static 'lib/datatables-1.10.20/js/jquery.dataTables.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/js/dataTables.bootstrap4.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/dataTables.responsive.min.js' %}"></script>
+    <script src="{% static 'lib/datatables-1.10.20/plugins/responsive-2.2.3/js/responsive.bootstrap4.min.js' %}"></script>
+
+    
+    {% block head_list %}
+        
+    {% endblock head_list %}
+        
+
+{% endblock head %}
+<!--CONTENIDO PRINCIPAL-->
+{% block contenido %}
+    <div class="card" id="contenidoInformacion" style="background: #F9F0F8">
+        <h1 style="text-align: center">
+            HOSPITAL VETERINARIO
+        </h1>
+        <h1 style="text-align: center">
+            "MASCOT"
+        </h1>
+
+        <div class="card-body">
+            <img src="{{ sale.image.url }}" class="img-circle" alt="User Image" style="margin-left:360px;" width="500px" height="500px">
+            <h1> <strong> INFORMACIÓN:</strong> </h1>
+            <h2> Nombre: <strong>{{ sale.names }}</strong> </h2>
+            <h2> Especie: <strong>{{ sale.especie }}</strong> </h2>
+            <h2> Raza: <strong>{{ sale.raza }}</strong> </h2>
+            <h2> Sexo: <strong>{{ sale.gender }}</strong> </h2>
+            <h2> Fecha de Nacimiento: <strong>{{ sale.date_birthday }}</strong> </h2>
+            <img src="{{ sale.qr.url }}"  alt="User Image" style="margin-left:360px;" width="400" height="300px">
+
+        </div>
+    </div>
+{% endblock contenido %}
+<!-- javascripts DEL DATATABLE -->
+{% block javascript %}
+ 
+{% endblock %}
