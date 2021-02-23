@@ -85,7 +85,7 @@ class MascotForm(ModelForm):
     class Meta:
         model = Mascot
         
-        fields = ['names', 'date_birthday','especie','gender','raza','cli','image']
+        fields = ['names', 'date_birthday','especie','gender','raza','cli','observacion','image']
 
         widgets = {
             'names': forms.TextInput(

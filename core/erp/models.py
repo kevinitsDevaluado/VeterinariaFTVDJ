@@ -10,7 +10,7 @@ from django.db import models
 from django.forms import model_to_dict
 
 from config.settings import MEDIA_URL, STATIC_URL
-from core.erp.choices import gender_choices,gender_unid,gender_especie
+from core.erp.choices import gender_especie, gender_choices_mascot ,gender_choices 
 from core.erp.validators import vcedula,validacionCantidad,validacionNacimiento,validacionFechaActual,validarLetras,validarLetrass
 
 #TABLA CLIENTE
@@ -20,6 +20,7 @@ class Client(models.Model):
     surnames = models.CharField(max_length=150, verbose_name='Apellidos',validators=[validarLetras])
     date_birthday = models.DateField(default=datetime.now, verbose_name='Fecha de nacimiento' )
     address = models.CharField(max_length=150, null=True, blank=True, verbose_name='Dirección')
+    telefono = models.CharField(max_length=150, null=True, blank=True, verbose_name='Telefono')
     gender = models.CharField(max_length=10, choices=gender_choices, default='male', verbose_name='Sexo')
 
     def __str__(self):
@@ -45,15 +46,20 @@ class Mascot(models.Model):
     names = models.CharField(max_length=150, verbose_name='Nombres')
     date_birthday = models.DateField(default=datetime.now, verbose_name='Fecha de nacimiento' )
     especie = models.CharField(max_length=10, choices=gender_especie, default='perro', verbose_name='Especie')
-    gender = models.CharField(max_length=10, choices=gender_choices, default='male', verbose_name='Sexo')
-    raza = models.CharField(max_length=10,  null=True, blank=True, verbose_name='Raza')
+    gender = models.CharField(max_length=10, choices=gender_choices_mascot, default='male', verbose_name='Sexo')
+    raza = models.CharField(max_length=100,  null=True, blank=True, verbose_name='Raza')
     cli = models.ForeignKey(Client, on_delete=models.CASCADE, verbose_name='Dueño')
-    image = models.ImageField(upload_to='mascot/%Y/%m/%d', null=True, blank=True)
+    image = models.ImageField(upload_to='mascot/%Y/%m/%d', null=False, blank=False,verbose_name='Imagen Mascota')
+    observacion = models.CharField(max_length=100,  null=True, blank=True, verbose_name='Observacion')
     qr = models.ImageField(upload_to='qr/%Y/%m/%d', null=True, blank=True)
+    #CON EL METODO SAVE PROCEDEMOS A REALIZAR EL QR
 
+    def get_full_name(self):
+        return '{}/{}/{}' .format(self.names, self.cli.names , self.cli.telefono)
+    
     def save(self, *args, **kwargs):
-        qrcode_img = qrcode.make(self.names)
-        canvas = Image.new('RGB',(290,290), 'white')
+        qrcode_img = qrcode.make(self.get_full_name())
+        canvas = Image.new('RGB',(300,300), 'white')
         draw = ImageDraw.Draw(canvas)
         canvas.paste(qrcode_img)
         fname = f'qr-{self.names}.png'
@@ -71,6 +77,7 @@ class Mascot(models.Model):
     def __str__(self):
         return self.cli.names
 
+    
     def toJSON(self):
         item = model_to_dict(self)
         item['gender'] = {'id': self.gender, 'name': self.get_gender_display()}

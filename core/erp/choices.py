@@ -2,16 +2,11 @@ gender_choices = (
     ('male','Masculino'),
     ('female','Femenino'),
 )
-
-gender_especie = (
-    ('perro','perro'),
-    ('gato','gato'),
+gender_choices_mascot = (
+    ('male','MACHO'),
+    ('female','HEMBRA'),
 )
-gender_unid = (
-    ('libras','libras'),
-    ('litros','Litros'),
-    ('Costales','Costal'),
-    ('kilos','Kilos'),
-    ('gramos','gramos'),
-
+gender_especie = (
+    ('PERRO','PERRO'),
+    ('GATO','GATO'),
 )
